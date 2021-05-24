@@ -1,0 +1,30 @@
+{
+    "compilerOptions": {
+        "baseUrl": "./",
+        "paths": {
+            "repository/*": ["repository/*"],
+            "@components/*": ["components/*"],
+        },
+        "allowJs": true,            //.ts, .tsx 파일 대신 자바스크립트 파일을 가져올수있습니다.
+        "alwaysStrict": true,       // 파일이 ECMAScript 엄격 모드에서 구문 분석되었는지 확인하고 각 소스 파일에 대해 "엄격 사용"을 내 보냅니다.
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
+        "isolatedModules": true,
+        "jsx": "preserve",
+        "lib": ["dom","es2017"],
+        "module": "esnext",
+        "moduleResolution": "Node",
+        "noEmit": true,
+        "noFallthroughCasesInSwitch": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "resolveJsonModule": true,
+        "skipLibCheck": true,
+        "strict": true,
+        "target": "esnext"
+    },
+    "exclude": [ // npm 으로 설치한 모듈들을 import 가능하도록 설정
+        "node_modules"
+    ],
+    "include": ["**/*.ts", "**/*.tsx"]
+}
