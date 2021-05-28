@@ -1,17 +1,29 @@
-import Layout from "@components/layouts/Layout";
-import { useState } from "react";
+import React from "react";
+import Layout,{MessageContext} from "@components/layouts/Layout";
+import Location from "./Location";
+import MyPage from "./MyPage";
+import MyTravel from "./MyTravel";
+import Upload from "./Upload";
+import Main from "./Main";
 
 const Home = () => {
-    const version = process.env.REACT_APP_SERVICE_VERSION
-    console.log("VERSION", version);
-    const [text, setText] = useState<string>("안녕하세요.");
-    setTimeout(()=>{
-        setText("반값습니다.")
-    },2000)
+
     return (
-        <Layout>
-            <h1>{process.env.NEXT_PUBLIC_HOME}</h1>
-            <h3>{text}</h3>
+        <Layout title="돼지">
+            <MessageContext.Consumer>
+                { pageNumber =>
+                     ( pageNumber == 1 )
+                         ? <Location />
+                         : ( pageNumber == 3 )
+                            ? <MyPage />
+                            : ( pageNumber == 2 )
+                                ? <MyTravel />
+                                : ( pageNumber == 4 )
+                                    ? <Upload />
+                                    : <Main />
+
+                }
+            </MessageContext.Consumer>
         </Layout>
     )
 }

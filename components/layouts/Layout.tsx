@@ -1,8 +1,10 @@
-import React, { ReactNode ,Fragment} from 'react'
+import React, {ReactNode, Fragment,useEffect } from 'react'
 import Head from 'next/head'
 import Header from "@components/layouts/Header";
+import ButtonNav from "@components/layouts/ButtonNav";
 import Footer from "@components/layouts/Footer";
 import GlobalStyle from "@components/layouts/GlobalStyle";
+export const MessageContext = React.createContext(0)
 
 type Props = {
     children?: ReactNode
@@ -11,28 +13,42 @@ type Props = {
 
 const LayoutStyles = {
     Wrapper : {      margin: 0,      padding: 0,     width: '100%',    height: '100%',    background : '#fff'   },
-    Container : {    display : 'flex',   justifyContent : 'center'  }
+    Container : {    display : 'flex',   justifyContent : 'center', marginBottom:'56px' , marginTop:'35px' }
 }
 
-const Layout = ({ children, title = 'default title' }: Props) => (
-    <Fragment>
-        <GlobalStyle/>
-        <Head>
-            <title>Senshig | {title}</title>
-            <meta charSet="utf-8" />
-            <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-        </Head>
-
-        <div style={LayoutStyles.Wrapper}>
-            <Header/>
-            <section style={LayoutStyles.Container}>
-                <main>
-                    {children}
-                </main>
-            </section>
-            <Footer/>
-        </div>
-    </Fragment>
-)
-
-export default Layout
+const Layout = ({ children, title = '이어둠을빨간코로' }: Props) =>
+{
+    const [mainPageValue, setMainPageValue] = React.useState(0);
+    function callback(value: number) {
+        setMainPageValue(value);
+    }
+    useEffect(() => {
+        console.log('컴포넌트가 화면에 나타남');
+        return () => {
+            console.log('컴포넌트가 화면에서 사라짐');
+        };
+    }, []);
+    return (
+        <Fragment>
+            <GlobalStyle/>
+            <Head>
+                <title>{process.env.REACT_APP_TITLE} | {title}</title>
+                <meta charSet="utf-8" />
+                <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
+            </Head>
+            <div style={LayoutStyles.Wrapper}>
+                <Header/>
+                <section style={LayoutStyles.Container}>
+                    <main>
+                        <MessageContext.Provider value={mainPageValue} >
+                            {children}
+                        </MessageContext.Provider>
+                    </main>
+                </section>
+                <Footer/>
+                <ButtonNav parentCallback={callback}/>
+            </div>
+        </Fragment>
+    )
+}
+export default Layout;

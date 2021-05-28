@@ -43,11 +43,11 @@ const flex = {
     `
 };
 
-const CommonStyle ={
+const CommonStyleTheme ={
     flex,
     palette,
     deviceSizes,
     device,
 };
 
-export default CommonStyle;
+export default CommonStyleTheme;
