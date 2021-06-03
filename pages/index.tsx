@@ -1,30 +1,33 @@
+import Card from "@components/Card";
 import React from "react";
-import Layout,{MessageContext} from "@components/layouts/Layout";
-import Location from "./Location";
-import MyPage from "./MyPage";
-import MyTravel from "./MyTravel";
-import Upload from "./Upload";
-import Main from "./Main";
+import { CardRep } from "repository/CardRep";
+import Masonry from "@components/Masonry";
+import Layout from "@components/layouts/Layout";
 
-const Home = () => {
+const repository = CardRep;
 
-    return (
-        <Layout title="돼지">
-            <MessageContext.Consumer>
-                { pageNumber =>
-                     ( pageNumber == 1 )
-                         ? <Location />
-                         : ( pageNumber == 3 )
-                            ? <MyPage />
-                            : ( pageNumber == 2 )
-                                ? <MyTravel />
-                                : ( pageNumber == 4 )
-                                    ? <Upload />
-                                    : <Main />
-
-                }
-            </MessageContext.Consumer>
-        </Layout>
-    )
+const CardListStyles = {
+    CardBox : { margin : 5,}
 }
-export default Home;
+
+const brakePoints = [500];
+const WithStaticProps = () => (
+
+    <Layout title="loaction">
+        <Masonry brakePoints={brakePoints}>
+            {repository.map((item)=>(
+                <div style={CardListStyles.CardBox}>
+                    <Card
+                        image={item.image}
+                        title={item.text}
+                        text={item.text}
+                        date={item.date}
+                        like={item.like}
+                        key={item.id}
+                    />
+                </div>
+            )) }
+        </Masonry>
+    </Layout>
+)
+export default WithStaticProps;

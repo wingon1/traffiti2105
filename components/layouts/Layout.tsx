@@ -4,7 +4,6 @@ import Header from "@components/layouts/Header";
 import ButtonNav from "@components/layouts/ButtonNav";
 import Footer from "@components/layouts/Footer";
 import GlobalStyle from "@components/layouts/GlobalStyle";
-export const MessageContext = React.createContext(0)
 
 type Props = {
     children?: ReactNode
@@ -13,15 +12,11 @@ type Props = {
 
 const LayoutStyles = {
     Wrapper : {      margin: 0,      padding: 0,     width: '100%',    height: '100%',    background : '#fff'   },
-    Container : {    display : 'flex',   justifyContent : 'center', marginBottom:'56px' , marginTop:'35px' }
+    Container : {    display : 'flex',   justifyContent : 'center', marginTop:'35px' }
 }
 
 const Layout = ({ children, title = '이어둠을빨간코로' }: Props) =>
 {
-    const [mainPageValue, setMainPageValue] = React.useState(0);
-    function callback(value: number) {
-        setMainPageValue(value);
-    }
     useEffect(() => {
         console.log('컴포넌트가 화면에 나타남');
         return () => {
@@ -40,13 +35,11 @@ const Layout = ({ children, title = '이어둠을빨간코로' }: Props) =>
                 <Header/>
                 <section style={LayoutStyles.Container}>
                     <main>
-                        <MessageContext.Provider value={mainPageValue} >
-                            {children}
-                        </MessageContext.Provider>
+                        {children}
                     </main>
                 </section>
                 <Footer/>
-                <ButtonNav parentCallback={callback}/>
+                <ButtonNav />
             </div>
         </Fragment>
     )

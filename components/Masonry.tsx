@@ -40,7 +40,7 @@ class Masonry extends React.Component{
     }
 
     onResize(){
-        console.log('onResize : ')
+        console.log('onResize : '+this.refs.Masonry.offsetWidth)
         const columns = this.getColumns(this.refs.Masonry.offsetWidth);
         if(columns !== this.state.columns){
             this.setState({columns: columns});
@@ -64,11 +64,10 @@ class Masonry extends React.Component{
     render(){
         return (
             <div className="masonry" style={Style.Masonry} ref="Masonry">
-                {console.log(this.mapChildren())}
                 {this.mapChildren().map((col, ci) => {
                     return (
                         <div className="column" style={Style.Column} key={ci} >
-                            {col.map((child, i) => {
+                            {col.map((child: boolean | React.ReactChild | React.ReactFragment | React.ReactPortal | null | undefined, i: React.Key | null | undefined) => {
                                 return <div key={i} >{child}</div>
                             })}
                         </div>
